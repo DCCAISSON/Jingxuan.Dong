@@ -12,7 +12,7 @@
             scroll-behavior: smooth;
             color: #333;
             padding-top: 64px; /* Space for fixed navbar */
-            background-color: #f7fafc; /* Light gray background for the whole page */
+            background-color: #f7fafc; 
         }
         .main-content-area h1, .main-content-area h2, .main-content-area h3, .main-content-area h4 {
             font-family: 'Lora', serif;
@@ -30,11 +30,13 @@
              @apply bg-blue-100 text-blue-700 font-semibold;
         }
         .content-section {
-            /* Increased padding: p-6 md:p-10 changed to p-8 md:p-12 */
-            @apply mb-12 bg-white shadow-xl rounded-lg p-8 md:p-12; 
+            /* Adjusted padding: more horizontal padding */
+            /* Sections are hidden by default, JS will control visibility */
+            @apply mb-12 bg-white shadow-xl rounded-lg py-8 md:py-12 px-6 sm:px-10 md:px-16 hidden; 
         }
         .content-section h2 {
-            @apply text-3xl font-bold text-blue-700 border-b-2 border-gray-300 pb-3 mb-8;
+            /* Emphasized section titles and adjusted spacing */
+            @apply text-3xl md:text-4xl font-bold text-blue-800 border-b-2 border-gray-300 pb-4 mb-10 pt-2 md:pt-4;
         }
         .item-entry {
             @apply mb-6 pb-6 border-b border-gray-200;
@@ -52,7 +54,7 @@
             @apply text-base text-gray-700 leading-relaxed;
         }
         .content-section ul {
-            @apply pl-5; /* Padding for list items, relative to their container */
+            @apply pl-5; 
         }
         .profile-image {
             width: 180px; 
@@ -68,11 +70,11 @@
         .container-main {
              @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
         }
-        #home { /* Specific styling for the About Me section */
+        #home { 
             background-color: #fff; 
             padding-top: 2rem; 
             padding-bottom: 2rem;
-            /* Horizontal padding for #home is handled by .container-main and flexbox alignment */
+            /* Removed 'hidden' from #home as it's the default visible section */
         }
     </style>
 </head>
@@ -82,16 +84,16 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
-                    <a href="#home" class="text-2xl font-bold font-lora text-blue-700">Jingxuan Dong</a>
+                    <a href="#home" class="text-2xl font-bold font-lora text-blue-700 nav-link">Jingxuan Dong</a>
                 </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-1 lg:space-x-2 top-nav">
-                        <a href="#home" class="active">About Me</a>
-                        <a href="#education">Education</a>
-                        <a href="#working-papers">Working Papers</a>
-                        <a href="#publications">Publications</a>
-                        <a href="#awards">Awards & Honors</a>
-                        <a href="#skills">Skills</a>
+                        <a href="#home" class="nav-link active">About Me</a>
+                        <a href="#education" class="nav-link">Education</a>
+                        <a href="#working-papers" class="nav-link">Working Papers</a>
+                        <a href="#publications" class="nav-link">Publications</a>
+                        <a href="#awards" class="nav-link">Awards & Honors</a>
+                        <a href="#skills" class="nav-link">Skills</a>
                         <a href="Jingxuan_Dong_CV.pdf" target="_blank" class="bg-blue-600 text-white hover:bg-blue-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">CV</a>
                     </div>
                 </div>
@@ -111,19 +113,20 @@
 
         <div class="md:hidden mobile-nav" id="mobile-menu" style="display: none;">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="active">About Me</a>
-                <a href="#education">Education</a>
-                <a href="#working-papers">Working Papers</a>
-                <a href="#publications">Publications</a>
-                <a href="#awards">Awards & Honors</a>
-                <a href="#skills">Skills</a>
+                <a href="#home" class="nav-link active">About Me</a>
+                <a href="#education" class="nav-link">Education</a>
+                <a href="#working-papers" class="nav-link">Working Papers</a>
+                <a href="#publications" class="nav-link">Publications</a>
+                <a href="#awards" class="nav-link">Awards & Honors</a>
+                <a href="#skills" class="nav-link">Skills</a>
                 <a href="Jingxuan_Dong_CV.pdf" target="_blank" class="bg-blue-600 text-white hover:bg-blue-700 hover:text-white">CV</a>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="pt-10 pb-10 md:pt-16 md:pb-16"> 
-        <div class="container-main"> <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+    <section id="home" class="pt-10 pb-10 md:pt-16 md:pb-16 content-section"> 
+        <div class="container-main"> 
+            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
                 <div class="w-full md:w-auto md:flex-shrink-0 text-center">
                     <img src="images/Profile_Photo.png" alt="Jingxuan Dong" class="profile-image inline-block">
                 </div>
@@ -308,54 +311,82 @@
     </footer>
 
     <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('a.nav-link'); // Select all navigation links with class 'nav-link'
+            const sections = document.querySelectorAll('section.content-section');
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const iconMenu = document.getElementById('icon-menu');
+            const iconClose = document.getElementById('icon-close');
 
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        const iconMenu = document.getElementById('icon-menu');
-        const iconClose = document.getElementById('icon-close');
+            // Function to show a specific section and hide others
+            function showSection(targetId) {
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
+                    } else {
+                        section.classList.add('hidden');
+                    }
+                });
 
-        menuButton.addEventListener('click', () => {
-            const isExpanded = menuButton.getAttribute('aria-expanded') === 'true' || false;
-            menuButton.setAttribute('aria-expanded', !isExpanded);
-            mobileMenu.style.display = isExpanded ? 'none' : 'block';
-            iconMenu.classList.toggle('hidden');
-            iconClose.classList.toggle('hidden');
-        });
+                // Update active state for nav links
+                navLinks.forEach(link => {
+                    if (link.getAttribute('href') === '#' + targetId) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+                window.scrollTo(0, 0); // Scroll to top of the page
+            }
 
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (link.getAttribute('href').startsWith('#')) { 
-                    menuButton.setAttribute('aria-expanded', 'false');
-                    mobileMenu.style.display = 'none';
-                    iconMenu.classList.remove('hidden');
-                    iconClose.classList.add('hidden');
-                }
-            });
-        });
-        
-        const sections = document.querySelectorAll('section[id]');
-        const topNavLinks = document.querySelectorAll('.top-nav a:not([target="_blank"]), .mobile-nav a:not([target="_blank"])');
-        const navElement = document.querySelector('nav');
-        const navHeight = navElement ? navElement.offsetHeight : 64; 
+            // Initially show the 'home' section
+            // The #home section in HTML should NOT have the 'hidden' class initially
+            // Or, we can explicitly show it here if all sections start hidden via CSS
+            const homeSection = document.getElementById('home');
+            if (homeSection) {
+                 homeSection.classList.remove('hidden'); // Ensure #home is visible
+            }
+             // Correctly set initial active link for "About Me"
+            document.querySelector('a.nav-link[href="#home"]').classList.add('active');
 
-        window.addEventListener('scroll', () => {
-            let current = 'home'; 
-            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
 
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - navHeight - 40; 
-                if (scrollPosition >= sectionTop) {
-                    current = section.getAttribute('id');
+            // Add click event listeners to navigation links
+            navLinks.forEach(link => {
+                // Exclude external links like CV from this behavior
+                if (link.getAttribute('href').startsWith('#')) {
+                    link.addEventListener('click', function (event) {
+                        event.preventDefault(); // Prevent default anchor jump
+                        const targetId = this.getAttribute('href').substring(1);
+                        showSection(targetId);
+
+                        // If it's a mobile menu link, close the mobile menu
+                        if (mobileMenu.style.display === 'block') {
+                            mobileMenuButton.setAttribute('aria-expanded', 'false');
+                            mobileMenu.style.display = 'none';
+                            iconMenu.classList.remove('hidden');
+                            iconClose.classList.add('hidden');
+                        }
+                    });
                 }
             });
             
-            topNavLinks.forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') && link.getAttribute('href').substring(1) === current) {
-                    link.classList.add('active');
-                }
-            });
+            // Mobile menu toggle
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => {
+                    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
+                    mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                    mobileMenu.style.display = isExpanded ? 'none' : 'block';
+                    iconMenu.classList.toggle('hidden');
+                    iconClose.classList.toggle('hidden');
+                });
+            }
+
+            // Copyright year
+            const currentYearElement = document.getElementById('currentYear');
+            if (currentYearElement) {
+                currentYearElement.textContent = new Date().getFullYear();
+            }
         });
     </script>
 
