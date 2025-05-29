@@ -103,6 +103,7 @@
             color: var(--dark);
             transition: all 0.3s ease;
             position: relative;
+            cursor: pointer; /* Ensure it looks clickable */
         }
         
         .nav-item:hover, .nav-item.active {
@@ -133,6 +134,8 @@
             background: rgba(247, 250, 252, 0.7); /* Subtle hover effect */
             border-radius: 12px;
             padding: 1.25rem; /* Adjust padding on hover for consistency */
+            margin-left: -1.25rem; /* Counteract padding for alignment */
+            margin-right: -1.25rem; /* Counteract padding for alignment */
             transform: translateY(-3px);
         }
         
@@ -275,6 +278,20 @@
             color: #2b6cb0; /* Icon color - secondary blue */
         }
 
+        /* Footer icon styling to match nav-items */
+        .footer-nav-icon {
+            padding: 0.5rem; /* Adjust padding as needed */
+            border-radius: 50%; /* Circular shape for icon consistency */
+            color: var(--gray); /* Default color */
+            transition: all 0.3s ease;
+        }
+        .footer-nav-icon:hover {
+            color: var(--secondary);
+            background: rgba(43, 108, 176, 0.08);
+        }
+        /* Ensure the active state for footer icons is handled by JS if needed, or remove if not applicable */
+
+
         @media (max-width: 768px) {
             .container-main {
                 padding: 0 1rem;
@@ -288,6 +305,11 @@
             .profile-image {
                 width: 180px;
                 height: 180px;
+            }
+            .item-entry:hover {
+                padding: 1.5rem;
+                margin-left: -1.5rem;
+                margin-right: -1.5rem;
             }
         }
     </style>
@@ -727,7 +749,7 @@
                     
                     <h4 class="font-medium mt-6 mb-3">Research Methodologies</h4>
                     <div class="flex flex-wrap gap-2">
-                        <span class="badge">Statistical Analysis</span>                      
+                        <span class="badge">Statistical Analysis</span>                        
                         <span class="badge">GIS Applications</span>
                         <span class="badge">Econometric Modeling</span>
                         <span class="badge">Meta-analysis</span>
@@ -741,16 +763,16 @@
     <footer class="bg-white border-t border-gray-200 py-8 mt-12">
         <div class="container-main text-center">
             <div class="flex justify-center space-x-6 mb-4">
-                <a href="mailto:jingxuan.dong@zju.edu.cn" class="text-gray-600 hover:text-secondary">
+                <a href="mailto:jingxuan.dong@zju.edu.cn" class="footer-nav-icon text-gray-600 hover:text-secondary">
                     <i class="fas fa-envelope text-xl"></i>
                 </a>
-                <a href="https://github.com/DCCAISSON" target="_blank" class="text-gray-600 hover:text-secondary">
+                <a href="https://github.com/DCCAISSON" target="_blank" class="footer-nav-icon text-gray-600 hover:text-secondary">
                     <i class="fab fa-github text-xl"></i>
                 </a>
-                <a href="#" class="text-gray-600 hover:text-secondary"> 
+                <a href="#" class="footer-nav-icon text-gray-600 hover:text-secondary"> 
                     <i class="fab fa-researchgate text-xl"></i>
                 </a>
-                <a href="#" class="text-gray-600 hover:text-secondary"> 
+                <a href="#education" class="nav-item footer-nav-icon text-gray-600 hover:text-secondary"> 
                     <i class="fas fa-graduation-cap text-xl"></i> 
                 </a>
             </div>
@@ -765,12 +787,14 @@
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('active');
-            });
+            if (mobileMenuButton && mobileMenu) { // Check if elements exist
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('active');
+                });
+            }
             
             // Navigation and section switching
-            const navItems = document.querySelectorAll('.nav-item');
+            const navItems = document.querySelectorAll('.nav-item'); // This now includes the footer icon
             const sections = document.querySelectorAll('.content-section');
             
             function showSection(sectionId) {
@@ -783,10 +807,15 @@
                     targetSection.classList.add('active');
                     
                     // Scroll to top of the page for better UX on section switch
-                     window.scrollTo({
-                         top: 0, 
-                         behavior: 'smooth' 
-                     });
+                     // Only scroll if not a footer icon, or if the section is not already at the top
+                    if (!event || !event.currentTarget.classList.contains('footer-nav-icon') || window.scrollY > 100) {
+                        window.scrollTo({
+                            top: 0, 
+                            behavior: 'smooth' 
+                        });
+                    }
+                } else {
+                    console.warn(`Section with ID "${sectionId}" not found.`);
                 }
             }
             
@@ -795,7 +824,7 @@
                     item.classList.remove('active');
                 });
                 
-                // Find all nav items (desktop and mobile) that link to the same section
+                // Find all nav items (desktop, mobile, and footer) that link to the same section
                 const targetHref = target.getAttribute('href');
                 navItems.forEach(item => {
                     if (item.getAttribute('href') === targetHref) {
@@ -806,16 +835,16 @@
             
             navItems.forEach(item => {
                 item.addEventListener('click', function(e) {
-                    // Allow default behavior for external links (CV download)
-                    if (this.getAttribute('target') === '_blank') {
+                    // Allow default behavior for external links (CV download) or links not starting with #
+                    if (this.getAttribute('target') === '_blank' || !this.getAttribute('href').startsWith('#')) {
                         return;
                     }
                     e.preventDefault();
                     const targetId = this.getAttribute('href').substring(1);
                     
                     // Close mobile menu if open and it's a mobile nav item
-                    if (mobileMenu.classList.contains('active') && this.closest('#mobile-menu')) {
-                         mobileMenu.classList.remove('active');
+                    if (mobileMenu && mobileMenu.classList.contains('active') && this.closest('#mobile-menu')) {
+                        mobileMenu.classList.remove('active');
                     }
                     
                     setActiveNav(this);
@@ -825,20 +854,25 @@
             
             // Initialize with About section or hash from URL
             const currentHash = window.location.hash.substring(1);
-            const initialSection = currentHash || 'about';
-            const initialNavItem = document.querySelector(`.nav-item[href="#${initialSection}"]`);
+            const initialSectionId = currentHash || 'about';
             
-            showSection(initialSection);
-            if (initialNavItem) {
-                 // Set active state for both desktop and mobile nav items if they exist
-                document.querySelectorAll(`.nav-item[href="#${initialSection}"]`).forEach(nav => nav.classList.add('active'));
+            // Ensure the 'about' section is always available for default
+            if (document.getElementById(initialSectionId)) {
+                 showSection(initialSectionId);
+                 // Set active state for all nav items (desktop, mobile, footer) that link to the initial section
+                document.querySelectorAll(`.nav-item[href="#${initialSectionId}"]`).forEach(nav => nav.classList.add('active'));
             } else {
-                // Default to 'about' if hash is invalid
+                showSection('about'); // Fallback to 'about' if hash is invalid
                 document.querySelectorAll('.nav-item[href="#about"]').forEach(nav => nav.classList.add('active'));
+                console.warn(`Initial section "${initialSectionId}" not found, defaulting to "about".`);
             }
 
+
             // Update copyright year
-            document.getElementById('current-year').textContent = new Date().getFullYear();
+            const currentYearEl = document.getElementById('current-year');
+            if (currentYearEl) { // Check if element exists
+                currentYearEl.textContent = new Date().getFullYear();
+            }
 
             // Ensure profile image has a fallback
             const profileImg = document.querySelector('.profile-image');
