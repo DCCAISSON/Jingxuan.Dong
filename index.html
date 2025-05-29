@@ -17,21 +17,25 @@
         .main-content-area h1, .main-content-area h2, .main-content-area h3, .main-content-area h4 {
             font-family: 'Lora', serif;
         }
+        /* Navigation Link Styles */
         .top-nav a {
-            @apply px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-200 hover:text-black;
+            @apply px-4 py-2 rounded-md text-base font-semibold text-gray-600 hover:bg-gray-200 hover:text-blue-700;
         }
         .top-nav a.active {
-            @apply text-blue-700 font-semibold;
+            @apply text-blue-700; /* font-semibold is already applied */
         }
         .mobile-nav a {
-            @apply block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-black;
+            @apply block px-4 py-3 rounded-md text-base font-semibold text-gray-600 hover:bg-gray-200 hover:text-blue-700;
         }
         .mobile-nav a.active {
-             @apply bg-blue-100 text-blue-700 font-semibold;
+             @apply bg-blue-100 text-blue-700; /* font-semibold is already applied */
         }
+
+        /* Content Section Styles */
         .content-section {
-            /* Better content centering with more spacious padding */
-            @apply mb-12 bg-white shadow-xl rounded-lg py-12 md:py-16 px-8 sm:px-12 md:px-20 lg:px-24 hidden; 
+            /* Increased horizontal padding: px-10 sm:px-16 md:px-20 */
+            /* Sections are hidden by default, JS will control visibility */
+            @apply mb-12 bg-white shadow-xl rounded-lg py-8 md:py-12 px-10 sm:px-16 md:px-20 hidden; 
         }
         .content-section h2 {
             /* Emphasized section titles and adjusted spacing */
@@ -66,23 +70,25 @@
         html {
             scroll-padding-top: 80px; 
         }
-        .container-main {
-             /* More spacious container with better centering */
-             @apply max-w-4xl mx-auto px-6 sm:px-8 lg:px-12;
+        .container-main { /* General container for max-width and centering */
+             @apply max-w-5xl mx-auto;
         }
+        /* Specific styling for the #home section's outer wrapper */
         #home { 
-            background-color: #fff; 
-            padding-top: 2rem; 
-            padding-bottom: 2rem;
-            /* Home section visible by default */
-            @apply shadow-xl rounded-lg mx-6 sm:mx-8 lg:mx-12 px-8 sm:px-12 md:px-20 lg:px-24 py-12 md:py-16;
+            /* It uses content-section for bg, shadow, vertical padding, and NEW horizontal padding */
+            /* It should NOT be hidden by default */
         }
+        /* The container *inside* #home should not add its own horizontal padding if #home (as content-section) already has it */
+        #home > .container-main {
+            @apply px-0; /* Override default px from .container-main for the one inside #home */
+        }
+
     </style>
 </head>
 <body class="bg-gray-100">
 
     <nav class="bg-white shadow-lg print:hidden fixed top-0 left-0 right-0 z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8"> {/* This container is for the nav bar itself */}
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center">
                     <a href="#home" class="text-2xl font-bold font-lora text-blue-700 nav-link">Jingxuan Dong</a>
@@ -125,9 +131,8 @@
         </div>
     </nav>
 
-    <section id="home" class="pt-10 pb-10 md:pt-16 md:pb-16"> 
-        <div class="container-main"> 
-            <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
+    <section id="home" class="content-section"> 
+        <div class="container-main px-4 sm:px-6 lg:px-8"> <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
                 <div class="w-full md:w-auto md:flex-shrink-0 text-center">
                     <img src="images/Profile_Photo.png" alt="Jingxuan Dong" class="profile-image inline-block">
                 </div>
@@ -158,7 +163,7 @@
         </div>
     </section>
 
-    <div class="container-main main-content-area mt-8">
+    <div class="container-main main-content-area mt-8 px-4 sm:px-6 lg:px-8">
         <section id="education" class="content-section">
             <h2>Education</h2>
             <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-3 text-base">
@@ -177,11 +182,43 @@
             </ul>
         </section>
 
+        <section id="research" class="content-section">
+            <h2>Research</h2>
+            <h3 class="text-xl font-semibold text-gray-700 mt-0 mb-4">Research Interests</h3>
+            <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 mb-8 text-base">
+                <li>Rural Development</li>
+                <li>Digital Economy</li>
+                <li>Human Capital</li>
+                <li>Efficiency and Productivity Analysis</li>
+                <li>Macroeconomic Analysis</li>
+            </ul>
+
+            <h3 class="text-xl font-semibold text-gray-700 mb-4">Research Projects</h3>
+            <div class="space-y-6">
+                <div class="item-entry">
+                    <h4>Hainan Provincial Graduate Innovation Research Project: Measurement and Enhancement Mechanisms of Green Efficiency in Hainan's Marine Economy (Qhys2021-80)</h4>
+                    <p><strong>Role: Principal Investigator</strong></p>
+                    <p>Duration: November 2021 - November 2022</p>
+                </div>
+                <div class="item-entry">
+                    <h4>National Natural Science Foundation of China Project: Evaluation and Enhancement Mechanisms of Social Adaptability for Ecological Migrants: A Neighborhood Effects Perspective (72103052)</h4>
+                    <p>Role: Participant</p>
+                    <p>Duration: January 2022 - December 2024</p>
+                </div>
+                <div class="item-entry">
+                    <h4>Southeast University Student Research Training Program (Major Project): Optimization Study of Meiyuan Cafeteria Service System, Jiulonghu Campus (201914004)</h4>
+                    <p><strong>Role: Principal Investigator</strong></p>
+                    <p>Duration: November 2018 - November 2019</p>
+                </div>
+                <p class="text-sm text-gray-500 italic">Also participated in several other national and provincial research projects. See CV for details.</p>
+            </div>
+        </section>
+
         <section id="working-papers" class="content-section">
             <h2>Working Papers</h2>
             <div class="space-y-6">
                 <div class="item-entry">
-                    <h3>The Potential of ICT: Reducing Rural Residents' Cognitive Biases Towards Ecological Policies</h3>
+                    <h3>The Potential of ICT: Reducing Rural Residents’ Cognitive Biases Towards Ecological Policies</h3>
                     <p><strong>Jingxuan Dong</strong>, Dan Qiao & Tao Xu</p>
                     <p class="italic">Information, Communication & Society, Forthcoming.</p>
                 </div>
@@ -207,18 +244,45 @@
             <h2>Publications</h2>
             <div class="space-y-6">
                  <div class="item-entry">
-                    <h3>China's Marine Economic Efficiency: A Meta-analysis</h3>
+                    <h3>China’s Marine Economic Efficiency: A Meta-analysis</h3>
                     <p>Tao Xu, <strong>Jingxuan Dong (Corresponding Author)</strong>, Dan Qiao</p>
                     <p class="italic">Ocean & Coastal Management, 239: 106633, 2023.</p>
                 </div>
                 <div class="item-entry">
-                    <h3>Total Factor Productivity of China's Marine Economy: A Meta-analysis</h3>
+                    <h3>Total Factor Productivity of China’s Marine Economy: A Meta-analysis</h3>
                     <p><strong>Jingxuan Dong (First Author)</strong>, Dan Qiao, Bei Yuan & Tao Xu</p>
                     <p class="italic">Frontiers in Marine Science, 9: 1014112, 2022.</p>
                 </div>
             </div>
         </section>
 
+        <section id="teaching" class="content-section">
+            <h2>Teaching & Presentations</h2>
+             <h3 class="text-xl font-semibold text-gray-700 mt-0 mb-4">Presentations</h3>
+            <div class="space-y-6">
+                <div class="item-entry">
+                    <h4>8th Marine Public Management Forum</h4>
+                    <p>Presentation: "Meta-Regression Analysis of Total Factor Productivity in China's Marine Economy"</p>
+                    <p>Zhanjiang, November 25, 2022 (Panel Presentation)</p>
+                </div>
+                <div class="item-entry">
+                    <h4>11th Graduate Research Symposium, School of Management, Hainan University</h4>
+                    <p>Presentation: "China's Marine Economic Efficiency: A Meta-analysis"</p>
+                    <p>Haikou, December 28, 2022 (Panel Presentation)</p>
+                </div>
+                <div class="item-entry">
+                    <h4>Guangdong Provincial Graduate Academic Forum</h4>
+                    <p>Presentation: "Meta-Analysis of China's Marine Economic Efficiency"</p>
+                    <p>Zhanjiang, June 25, 2022 (Panel Presentation)</p>
+                </div>
+                 <div class="item-entry">
+                    <h4>1st Ocean-Oriented Economy Forum</h4>
+                    <p>Topic: "Meta-Analysis of China's Marine Economic Efficiency"</p>
+                    <p>Qinzhou, June 19, 2022 (Attendance)</p>
+                </div>
+            </div>
+        </section>
+        
         <section id="awards" class="content-section">
             <h2>Awards & Honors</h2>
             <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 text-base">
@@ -254,69 +318,49 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const navLinks = document.querySelectorAll('a.nav-link');
+            const navLinks = document.querySelectorAll('a.nav-link'); 
             const sections = document.querySelectorAll('section.content-section');
-            const homeSection = document.getElementById('home');
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
             const iconMenu = document.getElementById('icon-menu');
             const iconClose = document.getElementById('icon-close');
 
-            // Function to show a specific section and hide others
             function showSection(targetId) {
-                // Handle home section separately as it's not in content-section class
-                if (targetId === 'home') {
-                    homeSection.style.display = 'block';
-                    sections.forEach(section => section.classList.add('hidden'));
-                } else {
-                    homeSection.style.display = 'none';
-                    sections.forEach(section => {
-                        if (section.id === targetId) {
-                            section.classList.remove('hidden');
-                        } else {
-                            section.classList.add('hidden');
-                        }
-                    });
-                }
-
-                // Update active state for nav links
-                navLinks.forEach(link => {
-                    if (link.getAttribute('href') === '#' + targetId) {
-                        link.classList.add('active');
+                sections.forEach(section => {
+                    if (section.id === targetId) {
+                        section.classList.remove('hidden');
                     } else {
-                        link.classList.remove('active');
+                        section.classList.add('hidden');
                     }
                 });
-                
-                window.scrollTo(0, 0); // Scroll to top of the page
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === '#' + targetId) {
+                        link.classList.add('active');
+                    }
+                });
+                window.scrollTo(0, 0); 
             }
 
-            // Handle page load with hash
-            function handleInitialLoad() {
-                const hash = window.location.hash.substring(1);
-                if (hash && (hash === 'home' || document.getElementById(hash))) {
-                    showSection(hash);
-                } else {
-                    showSection('home');
-                }
+            const homeSection = document.getElementById('home');
+            if (homeSection) {
+                 homeSection.classList.remove('hidden'); 
+            }
+            const homeNavLink = document.querySelector('a.nav-link[href="#home"]');
+            if (homeNavLink) {
+                homeNavLink.classList.add('active');
             }
 
-            // Initialize page
-            handleInitialLoad();
 
-            // Add click event listeners to navigation links
             navLinks.forEach(link => {
                 if (link.getAttribute('href').startsWith('#')) {
                     link.addEventListener('click', function (event) {
-                        event.preventDefault();
+                        event.preventDefault(); 
                         const targetId = this.getAttribute('href').substring(1);
                         showSection(targetId);
-                        
-                        // Update URL without triggering hashchange
-                        history.pushState({}, '', `#${targetId}`);
 
-                        // Close mobile menu if open
-                        if (mobileMenu.style.display === 'block') {
+                        if (mobileMenu && mobileMenu.style.display === 'block') {
                             mobileMenuButton.setAttribute('aria-expanded', 'false');
                             mobileMenu.style.display = 'none';
                             iconMenu.classList.remove('hidden');
@@ -325,14 +369,7 @@
                     });
                 }
             });
-
-            // Handle browser back/forward buttons
-            window.addEventListener('popstate', function(event) {
-                const hash = window.location.hash.substring(1);
-                showSection(hash || 'home');
-            });
             
-            // Mobile menu toggle
             if (mobileMenuButton) {
                 mobileMenuButton.addEventListener('click', () => {
                     const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true' || false;
@@ -343,7 +380,6 @@
                 });
             }
 
-            // Copyright year
             const currentYearElement = document.getElementById('currentYear');
             if (currentYearElement) {
                 currentYearElement.textContent = new Date().getFullYear();
