@@ -1,235 +1,327 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>个人学术主页 - [您的名字]</title>
+    <title>Jingxuan Dong - Academic Homepage</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
     <style>
         body {
+            font-family: 'Inter', sans-serif; /* Default sans-serif font for body */
+            scroll-behavior: smooth;
+            color: #333; /* Darker text for better readability */
+        }
+        .main-content h1, .main-content h2, .main-content h3, .main-content h4 {
+            font-family: 'Lora', serif; /* Serif font for headings */
+        }
+        .sidebar-nav a {
+            @apply block py-2 px-3 text-gray-700 hover:bg-gray-200 hover:text-black rounded-md;
             font-family: 'Inter', sans-serif;
         }
-        .profile-img-placeholder {
-            background-color: #e0e0e0; /* Placeholder background */
+        .sidebar-nav a.active { /* Optional: style for active link */
+            @apply bg-blue-100 text-blue-700 font-semibold;
+        }
+        .content-section {
+            @apply mb-12;
+        }
+        .content-section h2 { /* Section titles */
+            @apply text-2xl font-bold text-blue-700 border-b-2 border-gray-300 pb-2 mb-6;
+        }
+        .item-entry {
+            @apply mb-4 pb-4 border-b border-gray-200;
+        }
+        .item-entry:last-child {
+            @apply border-b-0 pb-0;
+        }
+        .item-entry h3 { /* Publication/Project titles */
+            @apply text-xl font-semibold text-gray-800 mb-1;
+        }
+        .item-entry p {
+            @apply text-sm text-gray-600 leading-relaxed;
+        }
+        .profile-image {
+            width: 128px; /* Slightly smaller profile image */
+            height: 128px;
             border-radius: 50%;
-            width: 160px;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            color: #666;
-            text-align: center;
+            object-fit: cover;
+            border: 3px solid #e0e0e0;
         }
-        .section-title {
-            border-bottom: 2px solid #3b82f6; /* Tailwind blue-500 */
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            font-size: 1.75rem; /* text-2xl */
-            font-weight: 600; /* semibold */
-        }
-        .publication-item, .project-item, .experience-item {
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e5e7eb; /* Tailwind gray-200 */
-        }
-        .publication-item:last-child, .project-item:last-child, .experience-item:last-child {
-            border-bottom: none;
-        }
-        .icon-link svg {
-            width: 1.25rem; /* w-5 */
-            height: 1.25rem; /* h-5 */
-            margin-right: 0.5rem; /* mr-2 */
-            fill: currentColor;
+        /* Ensure content doesn't get hidden behind potential fixed/sticky elements if any are added later */
+        html {
+            scroll-padding-top: 20px; /* Adjust as needed */
         }
     </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-50">
 
-    <nav class="bg-blue-600 text-white p-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto flex flex-wrap justify-between items-center">
-            <a href="#" class="text-2xl font-bold">[您的名字] - 学术主页</a>
-            <button id="mobile-menu-button" class="md:hidden block text-white focus:outline-none">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-            </button>
-            <div id="mobile-menu" class="hidden md:flex md:items-center md:space-x-6 w-full md:w-auto">
-                <a href="#about" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">关于我</a>
-                <a href="#research" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">研究方向</a>
-                <a href="#publications" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">发表论文</a>
-                <a href="#projects" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">科研项目</a>
-                <a href="#experience" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">经历</a>
-                <a href="#contact" class="block md:inline-block mt-2 md:mt-0 hover:text-blue-200 rounded px-2 py-1">联系方式</a>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container mx-auto p-4 md:p-8">
-
-        <header class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center">
-            <div class="profile-img-placeholder mb-6 md:mb-0 md:mr-8">
-                <span>照片区域</span>
-            </div>
-            <div class="text-center md:text-left">
-                <h1 class="text-4xl font-bold text-blue-700">[您的名字]</h1>
-                <p class="text-xl text-gray-600 mt-1">[您的职称/头衔], [您所在的院系或研究机构]</p>
-                <p class="text-lg text-gray-500 mt-1">[您所在的大学或单位]</p>
-                <div class="mt-4 flex flex-wrap justify-center md:justify-start space-x-4">
-                    <a href="mailto:your.email@example.com" class="icon-link text-blue-600 hover:text-blue-800 flex items-center">
-                        <svg viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"></path></svg>
-                        邮箱
-                    </a>
-                    <a href="#your-google-scholar-link" target="_blank" class="icon-link text-blue-600 hover:text-blue-800 flex items-center">
-                         <svg viewBox="0 0 24 24"><path d="M5.242 13.769L0 9.5L12 0l12 9.5l-5.242 4.269C17.548 11.249 14.978 9 12 9s-5.548 2.249-6.758 4.769zM12 10c1.657 0 3 1.343 3 3s-1.343 3-3 3s-3-1.343-3-3s1.343-3 3-3zm0 2c-.552 0-1 .448-1 1s.448 1 1 1s1-.448 1-1s-.448-1-1-1zm0 5c4.418 0 8-2.015 8-4.5V12l-8 6.5l-8-6.5v.5c0 2.485 3.582 4.5 8 4.5z"></path></svg>
-                        Google Scholar
-                    </a>
-                    <a href="#your-github-link" target="_blank" class="icon-link text-blue-600 hover:text-blue-800 flex items-center">
-                        <svg viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg>
-                        GitHub
-                    </a>
-                    <a href="#your-linkedin-link" target="_blank" class="icon-link text-blue-600 hover:text-blue-800 flex items-center">
-                         <svg viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
-                        LinkedIn
-                    </a>
+    <div class="flex flex-col md:flex-row min-h-screen">
+        <aside class="w-full md:w-64 bg-white md:border-r border-gray-200 p-4 md:p-6 shadow-md md:shadow-none print:hidden">
+            <div class="md:sticky md:top-6">
+                <div class="text-center mb-6 md:hidden"> <h1 class="text-2xl font-bold font-serif text-blue-700">Jingxuan Dong</h1>
+                    <p class="text-sm text-gray-600">PhD Candidate, Zhejiang University</p>
                 </div>
+                <nav class="sidebar-nav space-y-1">
+                    <a href="#home">Home</a>
+                    <a href="#education">Education</a>
+                    <a href="#research">Research</a>
+                    <a href="#working-papers">Working Papers</a>
+                    <a href="#publications">Publications</a>
+                    <a href="#teaching">Teaching & Presentations</a>
+                    <a href="#awards">Awards & Honors</a>
+                    <a href="#skills">Skills</a>
+                    </nav>
             </div>
-        </header>
+        </aside>
 
-        <section id="about" class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8">
-            <h2 class="section-title">关于我</h2>
-            <p class="text-gray-700 leading-relaxed">
-                这里是您的个人简介。您可以介绍您的学术背景、研究历程、主要成就以及未来的研究计划等。
-                例如：[您的名字]是[您所在的大学/单位]的[您的职称/头衔]。
-                我于[年份]在[授予学位的大学]获得[学位名称]学位。
-                我的研究主要集中在...
-                欢迎潜在的合作者和学生与我联系。
-            </p>
-        </section>
+        <main class="flex-1 p-4 md:p-8 lg:p-10 main-content bg-white md:ml-0">
+            <header class="mb-10 pb-6 border-b border-gray-300">
+                <div class="flex flex-col sm:flex-row items-center">
+                    <img src="images/Profile_Photo.png" alt="Jingxuan Dong" class="profile-image mb-4 sm:mb-0 sm:mr-6">
+                    <div>
+                        <h1 class="text-4xl font-bold text-blue-800">Jingxuan Dong</h1>
+                        <p class="text-xl text-gray-700 mt-1">PhD Candidate, Agricultural Economics and Management</p>
+                        <p class="text-lg text-gray-600">Zhejiang University</p>
+                        <div class="mt-3 text-sm space-x-3">
+                            <a href="mailto:jingxuan.dong@zju.edu.cn" class="text-blue-600 hover:underline">jingxuan.dong@zju.edu.cn</a>
+                            <span class="text-gray-400">|</span>
+                            <a href="Jingxuan_Dong_CV.pdf" target="_blank" class="text-blue-600 hover:underline">CV (PDF)</a>
+                            <span class="text-gray-400">|</span>
+                            <a href="https://github.com/DCCAISSON" target="_blank" class="text-blue-600 hover:underline">GitHub</a>
+                            </div>
+                    </div>
+                </div>
+            </header>
 
-        <section id="research" class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8">
-            <h2 class="section-title">研究方向</h2>
-            <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
-                <li>研究方向一：例如 机器学习、人工智能</li>
-                <li>研究方向二：例如 自然语言处理、计算机视觉</li>
-                <li>研究方向三：例如 数据挖掘、大数据分析</li>
-                <li>研究方向四：例如 计算社会科学</li>
+            <section id="home" class="content-section">
+                <h2>About Me</h2>
+                <p class="text-gray-700 leading-relaxed">
+                    Jingxuan Dong is a PhD candidate in Agricultural Economics and Management at Zhejiang University.
+                    He received his M.A. in Agricultural & Forestry Economics and Management from Hainan University in June 2024, and his B.A. with Distinction in Logistics Management from Southeast University in June 2020.
+                    His primary research interests include rural development, the digital economy, and human capital.
+                    Prospective collaborators and students are welcome to get in touch.
+                </p>
+            </section>
+
+            <section id="education" class="content-section">
+                <h2>Education</h2>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-3">
+                    <li>
+                        <strong>PhD Candidate</strong>, Agricultural Economics and Management
+                        <br>Zhejiang University, September 2024 – Present
+                    </li>
+                    <li>
+                        <strong>M.A.</strong>, Agricultural & Forestry Economics and Management
+                        <br>Hainan University, September 2021 – June 2024 (Ranking: 1/10)
+                    </li>
+                    <li>
+                        <strong>B.A.</strong>, Logistics Management, with Distinction
+                        <br>Southeast University, September 2016 – June 2020 (Ranking: 10/27)
+                    </li>
                 </ul>
-        </section>
+            </section>
 
-        <section id="publications" class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8">
-            <h2 class="section-title">发表论文</h2>
-            <div class="space-y-4">
-                <div class="publication-item">
-                    <h3 class="text-lg font-semibold text-blue-700">论文标题一：一个非常重要的研究成果</h3>
-                    <p class="text-sm text-gray-600">作者A, <strong>[您的名字]</strong>, 作者B</p>
-                    <p class="text-sm text-gray-500 italic">期刊/会议名称，年份，卷号（期号），页码</p>
-                    <p class="mt-1">
-                        <a href="#paper1-link" class="text-blue-500 hover:underline">[PDF]</a>
-                        <a href="#paper1-code" class="ml-2 text-blue-500 hover:underline">[代码]</a>
-                        <a href="#paper1-bibtex" class="ml-2 text-blue-500 hover:underline">[BibTeX]</a>
-                    </p>
-                </div>
-                <div class="publication-item">
-                    <h3 class="text-lg font-semibold text-blue-700">论文标题二：另一个有影响力的工作</h3>
-                    <p class="text-sm text-gray-600"><strong>[您的名字]</strong>, 作者C, 作者D</p>
-                    <p class="text-sm text-gray-500 italic">期刊/会议名称，年份，卷号（期号），页码</p>
-                     <p class="mt-1">
-                        <a href="#paper2-link" class="text-blue-500 hover:underline">[PDF]</a>
-                        <a href="#paper2-bibtex" class="ml-2 text-blue-500 hover:underline">[BibTeX]</a>
-                    </p>
-                </div>
-                <div class="publication-item">
-                    <h3 class="text-lg font-semibold text-blue-700">论文标题三：最新的预印本研究</h3>
-                    <p class="text-sm text-gray-600">作者E, 作者F, <strong>[您的名字]</strong></p>
-                    <p class="text-sm text-gray-500 italic">arXiv:xxxx.xxxxx, 年份</p>
-                     <p class="mt-1">
-                        <a href="#paper3-arxiv-link" class="text-blue-500 hover:underline">[arXiv]</a>
-                    </p>
-                </div>
-                </div>
-        </section>
+            <section id="research" class="content-section">
+                <h2>Research</h2>
+                <h3 class="text-xl font-semibold text-gray-700 mt-0 mb-3">Research Interests</h3>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2 mb-6">
+                    <li>Rural Development</li>
+                    <li>Digital Economy</li>
+                    <li>Human Capital</li>
+                    <li>Efficiency and Productivity Analysis</li>
+                    <li>Macroeconomic Analysis</li>
+                </ul>
 
-        <section id="projects" class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8">
-            <h2 class="section-title">科研项目</h2>
-            <div class="space-y-4">
-                <div class="project-item">
-                    <h3 class="text-lg font-semibold text-blue-700">项目名称一：国家级重点研发计划</h3>
-                    <p class="text-sm text-gray-600">角色：项目负责人 / 主要参与者</p>
-                    <p class="text-sm text-gray-500">起止时间：YYYY年MM月 - YYYY年MM月</p>
-                    <p class="text-sm text-gray-700 mt-1">项目简介：简要描述项目的研究内容和目标。</p>
+                <h3 class="text-xl font-semibold text-gray-700 mb-3">Research Projects</h3>
+                <div class="space-y-4">
+                    <div class="item-entry">
+                        <h4>Hainan Provincial Graduate Innovation Research Project: Measurement and Enhancement Mechanisms of Green Efficiency in Hainan's Marine Economy (Qhys2021-80)</h4>
+                        <p>Role: <strong>Principal Investigator</strong></p>
+                        <p>Duration: November 2021 - November 2022</p>
+                    </div>
+                    <div class="item-entry">
+                        <h4>National Natural Science Foundation of China Project: Evaluation and Enhancement Mechanisms of Social Adaptability for Ecological Migrants: A Neighborhood Effects Perspective (72103052)</h4>
+                        <p>Role: Participant</p>
+                        <p>Duration: January 2022 - December 2024</p>
+                    </div>
+                    <div class="item-entry">
+                        <h4>Southeast University Student Research Training Program (Major Project): Optimization Study of Meiyuan Cafeteria Service System, Jiulonghu Campus (201914004)</h4>
+                        <p>Role: <strong>Principal Investigator</strong></p>
+                        <p>Duration: November 2018 - November 2019</p>
+                    </div>
+                    <p class="text-sm text-gray-500 italic">Also participated in several other national and provincial research projects. See CV for details.</p>
                 </div>
-                <div class="project-item">
-                    <h3 class="text-lg font-semibold text-blue-700">项目名称二：企业合作横向课题</h3>
-                    <p class="text-sm text-gray-600">角色：技术负责人</p>
-                    <p class="text-sm text-gray-500">起止时间：YYYY年MM月 - YYYY年MM月</p>
-                    <p class="text-sm text-gray-700 mt-1">项目简介：简要描述与企业合作的内容和成果。</p>
-                </div>
-                </div>
-        </section>
+            </section>
 
-        <section id="experience" class="bg-white shadow-lg rounded-lg p-6 md:p-8 mb-8">
-            <h2 class="section-title">教学与经历</h2>
-            <div class="space-y-4">
-                <div class="experience-item">
-                    <h3 class="text-lg font-semibold text-blue-700">课程名称一：例如《人工智能导论》</h3>
-                    <p class="text-sm text-gray-600">角色：主讲教师</p>
-                    <p class="text-sm text-gray-500">学期：YYYY年春季/秋季学期</p>
-                    <p class="text-sm text-gray-700 mt-1">面向对象：本科生/研究生</p>
+            <section id="working-papers" class="content-section">
+                <h2>Working Papers</h2>
+                <div class="space-y-4">
+                    <div class="item-entry">
+                        <h3>The potential of ICT: Reducing rural residents’ cognitive biases towards ecological policies</h3>
+                        <p><strong>Jingxuan Dong</strong>, Dan Qiao & Tao Xu</p>
+                        <p class="italic">Information, Communication & Society, Forthcoming.</p>
+                    </div>
+                    <div class="item-entry">
+                        <h3>The Challenge of the Last Mile: ICT Empowering Farmers to Overcome Cognitive Biases in Ecological Policies</h3>
+                        <p><strong>Jingxuan Dong (First Author)</strong>, Dan Qiao & Tao Xu</p>
+                        <p class="italic">Journal of Agrotechnical Economics (农业技术经济), Submitted (CSSCI).</p>
+                         <p class="text-xs text-gray-500 mt-1">Note: User to verify English title for "最后一公里的挑战:信息通信技术赋能农户克服生态政策认知偏差".</p>
+                    </div>
+                     <div class="item-entry">
+                        <h3>Land Use Optimization and Food Security: Evidence from 10 Provinces in China</h3>
+                        <p>Supervisor as first author, <strong>Jingxuan Dong (Third Author)</strong></p>
+                        <p class="italic">China Land Science (中国土地科学), Under Review (CSSCI).</p>
+                        <p class="text-xs text-gray-500 mt-1">Note: User to verify English title for "土地利用优化是否能助力粮食安全? 来自全国10省市自治区的证据".</p>
+                    </div>
+                    <div class="item-entry">
+                        <h3>Impact of Media Use and Ecological Policy Cognition on Farmers' Green Production Behavior</h3>
+                        <p>Supervisor as first author, <strong>Jingxuan Dong (Fourth Author)</strong></p>
+                        <p class="italic">Journal of Resources Science (资源科学), Under Review (CSSCI).</p>
+                        <p class="text-xs text-gray-500 mt-1">Note: User to verify English title for "宣传媒介使用、生态政策认知如何影响农户绿色生产行为".</p>
+                    </div>
                 </div>
-                <div class="experience-item">
-                    <h3 class="text-lg font-semibold text-blue-700">审稿经历：顶级期刊/会议审稿人</h3>
-                    <p class="text-sm text-gray-600">期刊/会议：例如 Nature, Science, NeurIPS, ICML</p>
-                    <p class="text-sm text-gray-500">时间：YYYY年至今</p>
-                </div>
-                 <div class="experience-item">
-                    <h3 class="text-lg font-semibold text-blue-700">学术服务：会议组织者/程序委员会成员</h3>
-                    <p class="text-sm text-gray-600">会议名称及角色</p>
-                    <p class="text-sm text-gray-500">时间：YYYY年</p>
-                </div>
-                </div>
-        </section>
+            </section>
 
-        <section id="contact" class="bg-white shadow-lg rounded-lg p-6 md:p-8">
-            <h2 class="section-title">联系方式</h2>
-            <p class="text-gray-700 leading-relaxed">
-                如果您对我的研究感兴趣或有任何问题，欢迎通过以下方式与我联系：
-            </p>
-            <ul class="list-none space-y-2 mt-4 text-gray-700">
-                <li><strong>邮箱:</strong> <a href="mailto:your.email@example.com" class="text-blue-600 hover:underline">your.email@example.com</a></li>
-                <li><strong>办公地址:</strong> [您的办公地址，例如：XX大学XX楼XX房间]</li>
-                <li><strong>电话:</strong> [您的办公电话，可选]</li>
-            </ul>
-            <p class="text-gray-700 mt-4">
-                您也可以通过页面顶部的链接关注我的 Google Scholar, GitHub 或 LinkedIn 主页。
-            </p>
-        </section>
+            <section id="publications" class="content-section">
+                <h2>Publications</h2>
+                <div class="space-y-4">
+                     <div class="item-entry">
+                        <h3>China’s marine economic efficiency: A meta-analysis</h3>
+                        <p>Tao Xu, <strong>Jingxuan Dong (Corresponding Author)</strong>, Dan Qiao</p>
+                        <p class="italic">Ocean & Coastal Management, 239: 106633, 2023.</p>
+                        <p class="mt-1">
+                            </p>
+                    </div>
+                    <div class="item-entry">
+                        <h3>Total factor productivity of China’s marine economy: A meta-analysis</h3>
+                        <p><strong>Jingxuan Dong (First Author)</strong>, Dan Qiao, Bei Yuan & Tao Xu</p>
+                        <p class="italic">Frontiers in Marine Science, 9: 1014112, 2022.</p>
+                         <p class="mt-1">
+                            </p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="teaching" class="content-section">
+                <h2>Teaching & Presentations</h2>
+                 <h3 class="text-xl font-semibold text-gray-700 mt-0 mb-3">Presentations</h3>
+                <div class="space-y-4">
+                    <div class="item-entry">
+                        <h4>8th Marine Public Management Forum</h4>
+                        <p>Presentation: "Meta-Regression Analysis of Total Factor Productivity in China's Marine Economy"</p>
+                        <p>Zhanjiang, November 25, 2022 (Panel Presentation)</p>
+                    </div>
+                    <div class="item-entry">
+                        <h4>11th Graduate Research Symposium, School of Management, Hainan University</h4>
+                        <p>Presentation: "China's marine economic efficiency: A meta-analysis"</p>
+                        <p>Haikou, December 28, 2022 (Panel Presentation)</p>
+                    </div>
+                    <div class="item-entry">
+                        <h4>Guangdong Provincial Graduate Academic Forum</h4>
+                        <p>Presentation: "Meta-Analysis of China's Marine Economic Efficiency"</p>
+                        <p>Zhanjiang, June 25, 2022 (Panel Presentation)</p>
+                    </div>
+                     <div class="item-entry">
+                        <h4>1st Ocean-Oriented Economy Forum</h4>
+                        <p>Topic: "Meta-Analysis of China's Marine Economic Efficiency"</p>
+                        <p>Qinzhou, June 19, 2022 (Study Visit/Attendance)</p>
+                    </div>
+                    <!-- Example:
+                    <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Teaching</h3>
+                    <div class="item-entry">
+                        <h4>Course Title, University</h4>
+                        <p>Role (e.g., Teaching Assistant)</p>
+                        <p>Semester, Year</p>
+                    </div>
+                    -->
+                </div>
+            </section>
+            
+            <section id="awards" class="content-section">
+                <h2>Awards & Honors</h2>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
+                    <li>2022 National Scholarship for Master's Students (Sole recipient in the second year of Master's study)</li>
+                    <li>2022 First-Class Academic Scholarship for Master's Students, Hainan University (Ranked 1st)</li>
+                    <li>2022 "Outstanding Master's Student" Honor, Hainan University (Top 5%)</li>
+                    <li>2022 First Prize, Paper Competition, Graduate Research Symposium, School of Management, Hainan University</li>
+                    <li>2022 Second Prize, Paper Competition, Guangdong Provincial Graduate Academic Forum</li>
+                    <li>2022 Third Prize, Paper Competition, 8th Marine Public Management Forum</li>
+                    <li>2021 First-Class Academic Scholarship for Master's Students, Hainan University (Ranked 1st)</li>
+                    <li>2018 First Prize, 4th Logistics Design Competition, Southeast University</li>
+                    <li>2018 Second Prize, 8th Innovation Experience Competition, Southeast University</li>
+                    <li>2017 Second Prize, 8th "Challenge CEO" Competition, Southeast University</li>
+                    <li>2017 Excellence Award, Student Social Practice, Southeast University</li>
+                </ul>
+            </section>
+
+            <section id="skills" class="content-section">
+                <h2>Skills</h2>
+                <ul class="list-disc list-inside text-gray-700 leading-relaxed space-y-2">
+                    <li><strong>Stata:</strong> Proficient in data analysis, various econometric modeling, and visualization of empirical results.</li>
+                    <li><strong>ArcGIS & QGIS:</strong> Proficient in map creation, spatial data processing, and visualization.</li>
+                    <li><strong>Matlab:</strong> Capable of solving VRP with time windows and SVM-based classification and prediction problems.</li>
+                    <li><strong>Python:</strong> Capable of building neural network models for economic time series forecasting.</li>
+                    <li><strong>Languages:</strong> Mandarin (Native), English (Proficient, CET-6 Score: 500).</li>
+                </ul>
+            </section>
+
+        </main>
     </div>
 
-    <footer class="bg-gray-800 text-gray-300 text-center p-6 mt-12">
-        <p>&copy; <span id="currentYear"></span> [您的名字]. 保留所有权利.</p>
-        <p class="text-sm mt-1">网页模板由 AI 生成并可修改。</p>
+    <footer class="bg-gray-100 text-gray-600 text-center p-6 mt-auto border-t border-gray-200 print:hidden">
+        <p>&copy; <span id="currentYear"></span> Jingxuan Dong. All rights reserved.</p>
     </footer>
 
     <script>
-        // 移动端菜单切换
-        const menuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-        menuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
+        // Auto-update copyright year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-        // 导航链接点击时关闭移动端菜单 (如果打开的话)
-        const navLinks = mobileMenu.getElementsByTagName('a');
-        for (let link of navLinks) {
-            link.addEventListener('click', () => {
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
+        // Basic scrollspy for sidebar navigation (optional)
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar-nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+
+            sections.forEach(section => {
+                // Adjust offset if you have a fixed/sticky header or other elements
+                // The value '50' is an example offset, adjust it based on your layout
+                const sectionTop = section.offsetTop - 100; // Adjusted offset
+                if (scrollPosition >= sectionTop) {
+                    current = section.getAttribute('id');
                 }
             });
-        }
 
-        // 自动更新年份
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for sidebar links (if scroll-behavior:smooth in CSS is not enough for all browsers or specific needs)
+        document.querySelectorAll('.sidebar-nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const href = this.getAttribute('href');
+                if (href.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(href);
+                    if (targetElement) {
+                        const navHeight = 0; // Example: document.querySelector('.sticky-header-if-any').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - navHeight - 20; // 20px for extra margin
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: "smooth"
+                        });
+                    }
+                }
+            });
+        });
+
     </script>
 
 </body>
