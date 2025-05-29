@@ -50,6 +50,10 @@
         .item-entry p {
             @apply text-base text-gray-700 leading-relaxed;
         }
+        /* Added padding for list items to avoid being too close to the left edge */
+        .content-section ul {
+            @apply pl-5; /* Adjust this value as needed */
+        }
         .profile-image {
             width: 180px; /* Slightly larger profile image */
             height: 180px;
@@ -64,11 +68,10 @@
         .container-main {
              @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8;
         }
-        /* Styling for the new "About Me" section to resemble the example */
         #home {
             background-color: #fff; /* White background for the About Me section */
-            padding-top: 2rem; /* Equivalent to py-8 */
-            padding-bottom: 2rem; /* Equivalent to py-8 */
+            padding-top: 2rem; 
+            padding-bottom: 2rem;
         }
     </style>
 </head>
@@ -118,7 +121,7 @@
         </div>
     </nav>
 
-    <section id="home" class="pt-10 pb-10 md:pt-16 md:pb-16"> {/* Increased padding */}
+    <section id="home" class="pt-10 pb-10 md:pt-16 md:pb-16"> 
         <div class="container-main">
             <div class="flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-12">
                 <div class="w-full md:w-auto md:flex-shrink-0 text-center">
@@ -214,19 +217,16 @@
                     <h3>The Challenge of the Last Mile: ICT Empowering Farmers to Overcome Cognitive Biases in Ecological Policies</h3>
                     <p><strong>Jingxuan Dong (First Author)</strong>, Dan Qiao & Tao Xu</p>
                     <p class="italic">Journal of Agrotechnical Economics, Submitted (CSSCI).</p>
-                     {/* <p class="text-xs text-gray-500 mt-1">Original Chinese title reference: 最后一公里的挑战：信息通信技术赋能农户克服生态政策认知偏差</p> */}
                 </div>
                  <div class="item-entry">
                     <h3>Land Use Optimization and Food Security: Evidence from 10 Provinces in China</h3>
                     <p>Supervisor as first author, <strong>Jingxuan Dong (Third Author)</strong></p>
                     <p class="italic">China Land Science, Under Review (CSSCI).</p>
-                    {/* <p class="text-xs text-gray-500 mt-1">Original Chinese title reference: 土地利用优化是否能助力粮食安全？来自全国10省市自治区的证据</p> */}
                 </div>
                 <div class="item-entry">
                     <h3>Impact of Media Use and Ecological Policy Cognition on Farmers' Green Production Behavior</h3>
                     <p>Supervisor as first author, <strong>Jingxuan Dong (Fourth Author)</strong></p>
                     <p class="italic">Journal of Resources Science, Under Review (CSSCI).</p>
-                    {/* <p class="text-xs text-gray-500 mt-1">Original Chinese title reference: 宣传媒介使用、生态政策认知如何影响农户绿色生产行为</p> */}
                 </div>
             </div>
         </section>
@@ -271,14 +271,6 @@
                     <p>Topic: "Meta-Analysis of China's Marine Economic Efficiency"</p>
                     <p>Qinzhou, June 19, 2022 (Attendance)</p>
                 </div>
-                {/* Example for Teaching Experience:
-                <h3 class="text-xl font-semibold text-gray-700 mt-6 mb-3">Teaching Experience</h3>
-                <div class="item-entry">
-                    <h4>Course Title, University</h4>
-                    <p>Role (e.g., Teaching Assistant)</p>
-                    <p>Semester, Year</p>
-                </div>
-                */}
             </div>
         </section>
         
